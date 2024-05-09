@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PetitionServices from "../Services/PetitionServices";
-import { Navigate, useNavigate } from "react-router-dom";
 
 function RegisterComplaint() {
   const [complaintData, setComplaintData] = useState({
     description: "",
     user: {
-      userId: ""} // Changed from 'user' to 'userId' for consistency
+      userId: "",
+    }, // Changed from 'user' to 'userId' for consistency
   });
   const [userList, setUserList] = useState([]);
   const [error, setError] = useState(null);
@@ -14,7 +14,6 @@ function RegisterComplaint() {
   useEffect(() => {
     populateUsers();
   }, []);
-
 
   const populateUsers = async () => {
     try {
@@ -25,19 +24,17 @@ function RegisterComplaint() {
     }
   };
 
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(complaintData)
+    console.log(complaintData);
     try {
       await PetitionServices.registerComplaint(complaintData);
       alert("Complaint registered successfully");
-      navigate("/ViewPetitions");
 
       // Clear form fields after successful registration
       setComplaintData({
         description: "",
-        userId: "" // Reset userId to empty string
+        userId: "", // Reset userId to empty string
       });
       setError(null);
     } catch (error) {
@@ -50,10 +47,11 @@ function RegisterComplaint() {
     const selectedUserId = e.target.value;
     console.log(selectedUserId);
     setComplaintData({
-      ...complaintData, user: {
-      userId: selectedUserId} // Changed from 'user' to 'userId' for consistency
+      ...complaintData,
+      user: {
+        userId: selectedUserId,
+      }, // Changed from 'user' to 'userId' for consistency
     });
-    
   };
 
   return (
